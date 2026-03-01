@@ -26,8 +26,20 @@ async function ignoreJob(uid) {
 
 async function unignoreJob(uid) {
   const jobs = await getIgnoredJobs();
-  delete jobs[uid];
+  jobs[uid] = { ignored: false };
   await setIgnoredJobs(jobs);
+}
+
+async function registerJobs(uids) {
+  const jobs = await getIgnoredJobs();
+  let changed = false;
+  for (const uid of uids) {
+    if (!(uid in jobs)) {
+      jobs[uid] = { ignored: false };
+      changed = true;
+    }
+  }
+  if (changed) await setIgnoredJobs(jobs);
 }
 
 // --- UI helpers ---
@@ -45,7 +57,7 @@ function getTitleText(article) {
 function createIgnoreButton(uid, isIgnored, article) {
   const btn = document.createElement('button');
   btn.className = 'upwork-ignorer-btn' + (isIgnored ? ' unignore' : '');
-  btn.textContent = isIgnored ? 'Unignore' : 'Ignore';
+  btn.textContent = isIgnored ? 'Unignore' : 'I';
   btn.title = isIgnored ? 'Click to restore this job listing' : 'Click to collapse this job listing';
 
   btn.addEventListener('click', async (e) => {
@@ -121,8 +133,16 @@ function injectIgnoreButton(article, uid, isIgnored) {
 // --- Main processor ---
 
 async function processJobTiles() {
-  const ignoredJobs = await getIgnoredJobs();
   const articles = document.querySelectorAll('article[data-test="JobTile"], article[data-ev-job-uid]');
+
+  const uids = [];
+  articles.forEach((article) => {
+    const uid = getJobUID(article);
+    if (uid) uids.push(uid);
+  });
+  await registerJobs(uids);
+
+  const ignoredJobs = await getIgnoredJobs();
 
   articles.forEach((article) => {
     const uid = getJobUID(article);
@@ -132,7 +152,7 @@ async function processJobTiles() {
     if (article.dataset.ignorerProcessed === uid) return;
     article.dataset.ignorerProcessed = uid;
 
-    const isIgnored = !!ignoredJobs[uid];
+    const isIgnored = ignoredJobs[uid]?.ignored === true;
 
     if (isIgnored && !article.dataset.collapsed) {
       collapseCard(article, uid);
