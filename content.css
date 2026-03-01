@@ -1,0 +1,81 @@
+/* TopWork - content.css */
+
+.upwork-ignorer-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  margin-right: 6px;
+  border: 1px solid #d93025;
+  border-radius: 14px;
+  background: transparent;
+  color: #d93025;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  vertical-align: middle;
+  line-height: 1;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.upwork-ignorer-btn:hover {
+  background: #d93025;
+  color: #fff;
+}
+
+.upwork-ignorer-btn.unignore {
+  border-color: #555;
+  color: #888;
+}
+
+.upwork-ignorer-btn.unignore:hover {
+  background: #555;
+  color: #fff;
+}
+
+/* Fallback positioning if action area isn't found */
+.upwork-ignorer-btn--fallback {
+  position: absolute;
+  top: 12px;
+  right: 90px;
+}
+
+/* Collapsed card styles */
+.upwork-ignorer-collapsed {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  min-height: 0;
+}
+
+.upwork-ignorer-collapsed-title {
+  font-size: 14px;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 500px;
+  flex-shrink: 1;
+}
+
+.upwork-ignorer-collapsed-label {
+  font-size: 12px;
+  color: #999;
+  flex-shrink: 0;
+}
+
+/* Make the collapsed article itself compact */
+article[data-collapsed="true"] {
+  padding: 0 !important;
+  min-height: 0 !important;
+  margin-bottom: 4px !important;
+  border-radius: 6px !important;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+
+article[data-collapsed="true"]:hover {
+  opacity: 1;
+}

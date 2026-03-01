@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "TopWork",
+  "version": "1.0",
+  "description": "A Plugin to make UpWork more usable.",
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["*://*.upwork.com/*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}
