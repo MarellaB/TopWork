@@ -4,11 +4,17 @@
   "version": "1.0",
   "description": "A Plugin to make UpWork more usable.",
   "permissions": ["storage"],
+  "web_accessible_resources": [
+    {
+      "resources": ["features/ignore/ignore.svg"],
+      "matches": ["*://*.upwork.com/*"]
+    }
+  ],
   "content_scripts": [
     {
       "matches": ["*://*.upwork.com/*"],
-      "js": ["content.js"],
-      "css": ["content.css"],
+      "js": ["features/ignore/ignore.js", "content.js"],
+      "css": ["features/ignore/ignore.css"],
       "run_at": "document_idle"
     }
   ]
