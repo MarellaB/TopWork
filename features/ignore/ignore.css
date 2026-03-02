@@ -81,8 +81,6 @@
 article[data-collapsed="true"] {
   padding: 0 !important;
   min-height: 0 !important;
-  margin-bottom: 4px !important;
-  border-radius: 6px !important;
   opacity: 0.6;
   transition: opacity 0.15s;
 }

@@ -8,7 +8,7 @@ function getTitleText(article) {
 function createIgnoreButton(uid, isIgnored, article) {
   const btn = document.createElement('button');
   btn.className = 'upwork-ignorer-btn' + (isIgnored ? ' unignore' : '');
-  btn.title = isIgnored ? 'Click to restore this job listing' : 'Click to collapse this job listing';
+  btn.title = isIgnored ? 'Click to restore this job listing' : 'Click to ignore this job listing';
 
   if (isIgnored) {
     btn.textContent = 'Unignore';
